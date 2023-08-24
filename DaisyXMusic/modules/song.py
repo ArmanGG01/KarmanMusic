@@ -23,7 +23,6 @@ from DaisyXMusic.config import DURATION_LIMIT
 
 @Client.on_message(filters.command("song") & ~filters.channel)
 def song(client, message):
-
     user_id = message.from_user.id
     user_name = message.from_user.first_name
     rpk = f"[{user_name}](tg://user?id={str(user_id)})"

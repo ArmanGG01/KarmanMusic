@@ -21,9 +21,7 @@ async def update_admin(client, message: Message):
         chat_id,
         (
             member.user
-            for member in await message.chat.get_members(
-                filter="administrators"
-            )
+            for member in await message.chat.get_members(filter="administrators")
         ),
     )
     await message.reply_text("❇️ Admin cache refreshed!")
@@ -144,9 +142,7 @@ async def admincache(client, message: Message):
         message.chat.id,
         (
             member.user
-            for member in await message.chat.get_members(
-                filter="administrators"
-            )
+            for member in await message.chat.get_members(filter="administrators")
         ),
     )
     await message.reply_text("❇️ Admin cache refreshed!")
