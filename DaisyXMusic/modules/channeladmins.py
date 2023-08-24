@@ -145,12 +145,10 @@ async def mute(_, message: Message):
     await message.reply_text("✅ Muted")
     if mute:
         result == 0
+        await message.reply_text("❌ Not in call")
     else:
         await message.reply_text("❌ Already muted")
-    if not mute:
         result == 1
-    else:
-        await message.reply_text("❌ Not in call")
 
 
 @Client.on_message(
@@ -172,12 +170,10 @@ async def unmute(_, message: Message):
     await message.reply_text("✅ Unmuted")
     if unmute:
         result == 0
+        await message.reply_text("❌ Not in call")
     else:
         await message.reply_text("❌ Not muted")
-    if not unmute:
         result == 1
-    else:
-        await message.reply_text("❌ Not in call")
 
 
 @Client.on_message(filters.command("channeladmincache"))
@@ -192,9 +188,11 @@ async def admincache(client, message: Message):
         return
     set(
         chid,
-        [
+        (
             member.user
-            for member in await conchat.linked_chat.get_members(filter="administrators")
-        ],
+            for member in await conchat.linked_chat.get_members(
+                filter="administrators"
+            )
+        ),
     )
     await message.reply_text("❇️ Admin cache refreshed!")

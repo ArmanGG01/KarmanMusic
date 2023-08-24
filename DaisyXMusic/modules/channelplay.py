@@ -37,12 +37,10 @@ async def playlist(client, message):
     queue = que.get(lol)
     if not queue:
         await message.reply_text("Player is idle")
-    temp = []
-    for t in queue:
-        temp.append(t)
+    temp = list(queue)
     now_playing = temp[0][0]
     by = temp[0][1].mention(style="md")
-    msg = "<b>Now Playing</b> in {}".format(lel.linked_chat.title)
+    msg = f"<b>Now Playing</b> in {lel.linked_chat.title}"
     msg += "\n- " + now_playing
     msg += "\n- Req by " + by
     temp.pop(0)
@@ -63,24 +61,20 @@ async def playlist(client, message):
 async def updated_stats(chat, queue, vol=100):
     if chat.id in pytgcalls.active_chats:
         # if chat.id in active_chats:
-        stats = "Settings of **{}**".format(chat.title)
+        stats = f"Settings of **{chat.title}**"
         if len(que) > 0:
             stats += "\n\n"
-            stats += "Volume : {}%\n".format(vol)
-            stats += "Songs in queue : `{}`\n".format(len(que))
-            stats += "Now Playing : **{}**\n".format(queue[0][0])
-            stats += "Requested by : {}".format(queue[0][1].mention)
+            stats += f"Volume : {vol}%\n"
+            stats += f"Songs in queue : `{len(que)}`\n"
+            stats += f"Now Playing : **{queue[0][0]}**\n"
+            stats += f"Requested by : {queue[0][1].mention}"
     else:
         stats = None
     return stats
 
 
 def r_ply(type_):
-    if type_ == "play":
-        pass
-    else:
-        pass
-    mar = InlineKeyboardMarkup(
+    return InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton("⏹", "cleave"),
@@ -94,7 +88,6 @@ def r_ply(type_):
             [InlineKeyboardButton("❌ Close", "ccls")],
         ]
     )
-    return mar
 
 
 @Client.on_message(
@@ -109,8 +102,7 @@ async def ee(client, message):
         await message.reply("Is chat even linked")
         return
     queue = que.get(lol)
-    stats = updated_stats(conv, queue)
-    if stats:
+    if stats := updated_stats(conv, queue):
         await message.reply(stats)
     else:
         await message.reply("No VC instances running in this chat")
@@ -121,7 +113,6 @@ async def ee(client, message):
 )
 @authorized_users_only
 async def settings(client, message):
-    playing = None
     try:
         lel = await client.get_chat(message.chat.id)
         lol = lel.linked_chat.id
@@ -130,8 +121,8 @@ async def settings(client, message):
         await message.reply("Is chat even linked")
         return
     queue = que.get(lol)
-    stats = updated_stats(conv, queue)
-    if stats:
+    if stats := updated_stats(conv, queue):
+        playing = None
         if playing:
             await message.reply(stats, reply_markup=r_ply("pause"))
 
@@ -159,12 +150,10 @@ async def p_cb(client, b, cb):
         queue = que.get(lol)
         if not queue:
             await cb.message.edit("Player is idle")
-        temp = []
-        for t in queue:
-            temp.append(t)
+        temp = list(queue)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style="md")
-        msg = "**Now Playing** in {}".format(conv.title)
+        msg = f"**Now Playing** in {conv.title}"
         msg += "\n- " + now_playing
         msg += "\n- Req by " + by
         temp.pop(0)
@@ -233,12 +222,10 @@ async def m_cb(chat, b, cb):
         queue = que.get(cb.message.chat.id)
         if not queue:
             await cb.message.edit("Player is idle")
-        temp = []
-        for t in queue:
-            temp.append(t)
+        temp = list(queue)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style="md")
-        msg = "**Now Playing** in {}".format(cb.message.chat.title)
+        msg = f"**Now Playing** in {cb.message.chat.title}"
         msg += "\n- " + now_playing
         msg += "\n- Req by " + by
         temp.pop(0)

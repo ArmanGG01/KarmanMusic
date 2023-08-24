@@ -16,8 +16,7 @@ async def _(client, message):
         return
 
     song = ""
-    song = Song.find_song(query)
-    if song:
+    if song := Song.find_song(query):
         if song.lyrics:
             reply = song.format()
         else:

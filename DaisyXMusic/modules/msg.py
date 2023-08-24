@@ -1,6 +1,8 @@
 from DaisyXMusic.config import ASSISTANT_NAME, PROJECT_NAME
 
 
+
+
 class Messages:
     START_MSG = "**Hello 👋 [{}](tg://user?id={})!**\n\n🤖 I am an advanced bot created for playing music in the voice chats of Telegram Groups & Channels.\n\n✅ Send me /help for more info."
     HELP_MSG = [
@@ -25,7 +27,7 @@ class Messages:
 2) Send /userbotjoinchannel in linked group
 3) Now send commands in linked group
 """,
-        f"""
+        """
 **Commands**
 
 **=>> Song Playing 🎧**
@@ -84,7 +86,7 @@ channel is also can be used instead of c ( /cplay = /channelplay )
 - /admincache: Updates admin info of your group. Try if bot isn't recognize admin
 - /userbotjoin: Invite @{ASSISTANT_NAME} Userbot to your chat
 """,
-        f"""
+        """
 **=>> Song Download 🎸**
 
 - /video [song mame]: Download video song from youtube
@@ -97,7 +99,7 @@ channel is also can be used instead of c ( /cplay = /channelplay )
 - /search [song name]: Search youtube for songs
 - /lyrics [song name]: Get song lyrics
 """,
-        f"""
+        """
 **=>> Commands for Sudo Users ⚔️**
 
  - /userbotleaveall - remove assistant from all chats

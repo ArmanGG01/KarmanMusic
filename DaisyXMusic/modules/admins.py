@@ -19,10 +19,12 @@ async def update_admin(client, message: Message):
     chat_id = get_chat_id(message.chat)
     set(
         chat_id,
-        [
+        (
             member.user
-            for member in await message.chat.get_members(filter="administrators")
-        ],
+            for member in await message.chat.get_members(
+                filter="administrators"
+            )
+        ),
     )
     await message.reply_text("❇️ Admin cache refreshed!")
 
@@ -114,12 +116,10 @@ async def mute(_, message: Message):
     await message.reply_text("✅ Muted")
     if mute:
         result == 0
+        await message.reply_text("❌ Not in call")
     else:
         await message.reply_text("❌ Already muted")
-    if not mute:
         result == 1
-    else:
-        await message.reply_text("❌ Not in call")
 
 
 @Client.on_message(command("unmute") & other_filters)
@@ -131,12 +131,10 @@ async def unmute(_, message: Message):
     await message.reply_text("✅ Unmuted")
     if unmute:
         result == 0
+        await message.reply_text("❌ Not in call")
     else:
         await message.reply_text("❌ Not muted")
-    if not unmute:
         result == 1
-    else:
-        await message.reply_text("❌ Not in call")
 
 
 @Client.on_message(filters.command("admincache"))
@@ -144,9 +142,11 @@ async def unmute(_, message: Message):
 async def admincache(client, message: Message):
     set(
         message.chat.id,
-        [
+        (
             member.user
-            for member in await message.chat.get_members(filter="administrators")
-        ],
+            for member in await message.chat.get_members(
+                filter="administrators"
+            )
+        ),
     )
     await message.reply_text("❇️ Admin cache refreshed!")
